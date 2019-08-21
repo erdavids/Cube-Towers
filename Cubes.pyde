@@ -5,20 +5,20 @@
 
 
 # Dimensions of the structure
-grid_height = 20
-grid_width = 20
+grid_height = 100
+grid_width = 100
 
 
 # Customize the basic block
-block_size = 50
-block_height = 50
-lines = 5
-sw = 4
+block_size = 10
+block_height = 10
+lines = 2
+sw = 1
 
 # Adjust the parameters affecting perlin noise
 noise_scale = .01
 noise_multiplier = 100
-noise_dampener = 2
+noise_dampener = 5
 
 # Eventually multiplied by block size
 image_border_buff = 5
@@ -81,7 +81,6 @@ def setup():
 
     # Color of cubes
     fill(254, 171, 227)
-    
     
     # Debugging for centering structure
     # line(w/2, 0, w/2, h)
