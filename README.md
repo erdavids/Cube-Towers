@@ -4,5 +4,6 @@ Using Perlin noise to create cool structures with different cube types. Inspired
 
 <p align="center"><img src="https://github.com/erdavids/Cube-Towers/blob/master/Examples/Favorites/git-display.png"></p>
 
-Included in the 'Cubed-Image' folder is code that will use recreate a photo using the cubes. 
+Included in the 'Cubed-Image' folder is code that will use recreate a photo using the cubes, for example this one of my face... 
 
+<p align="center"><img src="https://github.com/erdavids/Cube-Towers/blob/master/Cubed_Image/Examples/git-display.png"></p>
