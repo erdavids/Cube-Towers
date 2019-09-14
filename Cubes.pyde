@@ -5,13 +5,13 @@
 
 
 # Dimensions of the structure
-grid_height = 30
-grid_width = 30
+grid_height = 40
+grid_width = 40
 
 
 # Customize the basic block
 block_size = 10
-block_height = 5
+block_height = 3
 lines = 2
 sw = 1
 
@@ -21,8 +21,11 @@ noise_multiplier = 100
 noise_dampener = 2
 
 # Eventually multiplied by block size
-image_border_buff = 5
+image_border_buff = 15
 
+# Gif Making
+make_gif = True
+iterations = 100
 
 # Important (and fragile) code used to center the structure based on block size
 #################
@@ -35,7 +38,7 @@ start_block_y = h/2 - grid_height/2 * block_size/2 - grid_width/2 * block_size/2
 
 
 # Basic Block, centered on top face
-def draw_block(x, y):
+def draw_block(x, y, h):
     beginShape()
     
     # Top Face
@@ -46,6 +49,7 @@ def draw_block(x, y):
     endShape(CLOSE)
     
     # Left Face
+    fill(254, 171, 227)
     beginShape()
     vertex(x - block_size, y)
     vertex(x, y + block_size/2)
@@ -54,11 +58,12 @@ def draw_block(x, y):
     endShape(CLOSE)
     
     #Add lines to left face (Helps with depth)
-    line_sep = block_height/lines
+    line_sep = float(block_height)/lines
     for l in range(lines):
         line(x - block_size, y + (l * line_sep), x, y + block_size/2 + (l * line_sep))
     
     # Right Face
+    fill(254, 171, 227)
     beginShape()
     vertex(x + block_size, y)
     vertex(x, y + block_size/2)
@@ -86,18 +91,21 @@ def setup():
     # line(w/2, 0, w/2, h)
     # line(0, h/2, w, h/2)
     
-    # Draw each cube
-    for x in range(grid_height):
-        for y in range(grid_width):
-            
-            # Generate Perlin Noise and normalize
-            cubes = int(noise(x * noise_scale, y * noise_scale) * noise_multiplier) / noise_dampener
-            
-            # Use normalized perlin noise to generate towers
-            for i in range(cubes):
-                draw_block((start_block_x + x*block_size) - y*block_size, (start_block_y + x*(block_size/2)) + y*(block_size/2) - i*(block_height))
-    
-    # Save to example folder
-    save('Examples/Vapor/' + str(grid_height) + '-' + str(grid_width) + '.png')
-    
-    
+    for g in range(iterations):
+        # Draw each cube
+        for x in range(grid_height):
+            for y in range(grid_width):
+                
+                # Generate Perlin Noise and normalize
+                cubes = int(noise((x + g) * noise_scale, (y + g) * noise_scale) * noise_multiplier) / noise_dampener
+                
+                # Use normalized perlin noise to generate towers
+                for i in range(cubes):
+                    draw_block((start_block_x + x*block_size) - y*block_size, (start_block_y + x*(block_size/2)) + y*(block_size/2) - i*(block_height), i)
+        
+        # Save to example folder
+        if (make_gif == False):
+            save('Examples/Vapor/' + str(grid_height) + '-' + str(grid_width) + '.png')
+        else:
+            save('Examples/GifTwo/' + str(g) + '.png')
+        
