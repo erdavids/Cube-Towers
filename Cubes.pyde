@@ -5,8 +5,8 @@
 
 
 # Dimensions of the structure
-grid_height = 40
-grid_width = 40
+grid_height = 1
+grid_width = 100
 
 
 # Customize the basic block
@@ -92,12 +92,14 @@ def setup():
     # line(0, h/2, w, h/2)
     
     for g in range(iterations):
+        background(190, 194, 249)
         # Draw each cube
+        
         for x in range(grid_height):
             for y in range(grid_width):
                 
                 # Generate Perlin Noise and normalize
-                cubes = int(noise((x + g) * noise_scale, (y + g) * noise_scale) * noise_multiplier) / noise_dampener
+                cubes = int(noise((x + g) * noise_scale, y * noise_scale) * noise_multiplier) / noise_dampener
                 
                 # Use normalized perlin noise to generate towers
                 for i in range(cubes):
