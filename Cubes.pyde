@@ -5,8 +5,8 @@
 
 
 # Dimensions of the structure
-grid_height = 1
-grid_width = 100
+grid_height = 30
+grid_width = 30
 
 
 # Customize the basic block
@@ -18,14 +18,14 @@ sw = 1
 # Adjust the parameters affecting perlin noise
 noise_scale = .05
 noise_multiplier = 100
-noise_dampener = 2
+noise_dampener = 1
 
 # Eventually multiplied by block size
 image_border_buff = 15
 
 # Gif Making
-make_gif = True
-iterations = 100
+make_gif = False
+iterations = 1
 
 # Important (and fragile) code used to center the structure based on block size
 #################
@@ -49,7 +49,6 @@ def draw_block(x, y, h):
     endShape(CLOSE)
     
     # Left Face
-    fill(254, 171, 227)
     beginShape()
     vertex(x - block_size, y)
     vertex(x, y + block_size/2)
@@ -63,7 +62,6 @@ def draw_block(x, y, h):
         line(x - block_size, y + (l * line_sep), x, y + block_size/2 + (l * line_sep))
     
     # Right Face
-    fill(254, 171, 227)
     beginShape()
     vertex(x + block_size, y)
     vertex(x, y + block_size/2)
@@ -73,10 +71,10 @@ def draw_block(x, y, h):
     
     
 def setup():
-    size(w, h)
+    size(int(w), int(h))
     
     # Need to extract to variable
-    background(190, 194, 249)
+    background(255, 255, 255)
     
     # Take advantage of screen resolution
     pixelDensity(2)
@@ -85,14 +83,13 @@ def setup():
     strokeWeight(sw)
 
     # Color of cubes
-    fill(254, 171, 227)
+    # fill(254, 171, 227)
     
     # Debugging for centering structure
     # line(w/2, 0, w/2, h)
     # line(0, h/2, w, h/2)
     
     for g in range(iterations):
-        background(190, 194, 249)
         # Draw each cube
         
         for x in range(grid_height):
@@ -102,12 +99,14 @@ def setup():
                 cubes = int(noise((x + g) * noise_scale, y * noise_scale) * noise_multiplier) / noise_dampener
                 
                 # Use normalized perlin noise to generate towers
-                for i in range(cubes):
-                    draw_block((start_block_x + x*block_size) - y*block_size, (start_block_y + x*(block_size/2)) + y*(block_size/2) - i*(block_height), i)
+                # for i in range(int(cubes)):
+                draw_block((start_block_x + x*block_size) - y*block_size, (start_block_y + x*(block_size/2)) + y*(block_size/2) - int(cubes)*(block_height), cubes)
         
         # Save to example folder
         if (make_gif == False):
-            save('Examples/Vapor/' + str(grid_height) + '-' + str(grid_width) + '.png')
+            seed = int(random(10000))
+            save('Examples/Vapor/' + str(seed) + '.png')
+            print(seed)
         else:
-            save('Examples/GifTwo/' + str(g) + '.png')
+            save('Examples/Test/' + str(g) + '.png')
         
