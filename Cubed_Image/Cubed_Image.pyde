@@ -80,6 +80,8 @@ def setup():
     
     height_grid = []
     
+    size(w, h)
+    
     # size(4000, 4000)
     
     # Loop through image in squares, average color, determine luminosity
@@ -102,7 +104,7 @@ def setup():
                     counter += 1
             
             # Color average of square
-            average = (red_total/counter, green_total/counter, blue_total/counter)
+            average = (red_total/float(counter), green_total/float(counter), blue_total/float(counter))
             
             # Convert color average to luminance
             lum = (average[0] * .2126) + (average[1] * .7152) + (average[2] * .0722)
@@ -112,9 +114,8 @@ def setup():
             rect(x, y, x + x_inc, y + y_inc)
     
 
-    size(w, h)
     # Need to extract to variable
-    background(190, 194, 249)
+    # background(190, 194, 249)
     
     # Take advantage of screen resolution
     pixelDensity(2)
@@ -130,16 +131,16 @@ def setup():
     # line(0, h/2, w, h/2)
     
     # Draw each cube
-    for x in range(grid_height):
-        print(x)
-        for y in range(grid_width):
+    # for x in range(grid_height):
+    #     print(x)
+    #     for y in range(grid_width):
             
-            # Generate Perlin Noise and normalize
-            cubes = height_grid[y + x * grid_height] / 10
+    #         # Generate Perlin Noise and normalize
+    #         cubes = height_grid[y + x * grid_height] / 10
             
-            # Use normalized perlin noise to generate towers
-            for i in range(int(cubes)):
-                draw_block((start_block_x + x*block_size) - y*block_size, (start_block_y + x*(block_size/2)) + y*(block_size/2) - i*(block_height))
+    #         # Use normalized perlin noise to generate towers
+    #         for i in range(int(cubes)):
+    #             draw_block((start_block_x + x*block_size) - y*block_size, (start_block_y + x*(block_size/2)) + y*(block_size/2) - i*(block_height))
     
     # Save to example folder
     # save('Examples/Vapor/' + str(grid_height) + '-' + str(grid_width) + '.png')

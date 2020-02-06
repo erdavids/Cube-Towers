@@ -100,7 +100,8 @@ def setup():
                 
                 # Use normalized perlin noise to generate towers
                 for i in range(int(cubes)):
-                    draw_block((start_block_x + x*block_size) - y*block_size, (start_block_y + x*(block_size/2)) + y*(block_size/2) - int(i)*(block_height), i)
+                    if (noise((x + g) * noise_scale, y * noise_scale, i * noise_scale) * noise_multiplier / noise_dampener < 1):
+                        draw_block((start_block_x + x*block_size) - y*block_size, (start_block_y + x*(block_size/2)) + y*(block_size/2) - int(i)*(block_height), i)
         
         # Save to example folder
         if (make_gif == False):
